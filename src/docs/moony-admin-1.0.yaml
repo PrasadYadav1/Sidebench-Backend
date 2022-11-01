@@ -1,0 +1,45 @@
+---
+openapi: 3.0.0
+info:
+    title: Moony Admin
+    version: "1.0"
+servers:
+    - url: /
+paths:
+    /app/health:
+        get:
+            description: server health info
+
+            responses:
+                "200":
+                    description: Successful verification
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/app_health_200"
+
+components:
+    securitySchemes:
+        bearerAuth: # arbitrary name for the security scheme
+            type: http
+            scheme: bearer
+            bearerFormat: JWT # optional, arbitrary value for documentation purposes
+    schemas:
+        app_health_200:
+            properties:
+                uptime:
+                    type: number
+                responseTime:
+                    type: array
+                    items:
+                        type: number
+                timestamp:
+                    type: string
+                    description: timestamp
+                cpuUsage:
+                    type: object
+                    properties:
+                        user:
+                            type: number
+                        system:
+                            type: number

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": true, 
+    "forceConsistentCasingInFileNames": true ,
+    "lib": ["esnext"],
+    "esModuleInterop": true
+  },
+  "include": ["src/*"],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/.jest/setEnvVars.ts"
+  ]
+}
