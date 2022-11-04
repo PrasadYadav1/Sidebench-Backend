@@ -30,3 +30,45 @@ generator zod {
   prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
   // prismaJsonNullability = false // allows null assignment to optional JSON fields
 }
+
+model AdminStatus {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(20)
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+  admins    Admin[]
+
+  @@map("admin_status")
+}
+
+model AdminRole {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(20)
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+  admins    Admin[]
+
+  @@map("admin_role")
+}
+
+model Admin {
+  id        Int         @id @default(autoincrement())
+  firstname String      @map("first_name") @db.VarChar(300)
+  lastname  String      @map("last_name") @db.VarChar(300)
+  password  String      @db.VarChar(1024)
+  salt      String      @db.VarChar(1024)
+  email     String      @db.VarChar(300)
+  roleId    Int         @map("role_id")
+  role      AdminRole   @relation(fields: [roleId], references: [id])
+  statusId  Int         @map("status_id")
+  status    AdminStatus @relation(fields: [statusId], references: [id])
+  isDeleted Boolean     @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
+  createdBy Int?        @map("created_by")
+  updatedBy Int?        @map("updated_by")
+
+  @@map("admin")
+}

@@ -14,13 +14,14 @@ const addMiddleware: (app: Express) => Express = app => {
     if (!checkEnvVariables()) {
         process.exit(1);
     }
+    const allowedOrigins = getCors();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(multer().single('imageFile'));
     app.use(
         cors({
             credentials: true,
-            origin: (getCors() || '').split(','),
+            origin: allowedOrigins === '*' ? allowedOrigins : (allowedOrigins || '').split(','),
         }),
     );
     if (process.env.SHOW_API_DOCS === 'yes') {
