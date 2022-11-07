@@ -19,12 +19,14 @@ const addMiddleware: (app: Express) => Express = app => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(multer().single('imageFile'));
-    app.use(
+    if (allowedOrigins === '*') {
+        app.use(cors());
+    } else {
         cors({
             credentials: true,
-            origin: allowedOrigins === '*' ? allowedOrigins : (allowedOrigins || '').split(','),
-        }),
-    );
+            origin: (allowedOrigins || '').split(','),
+        });
+    }
     if (process.env.SHOW_API_DOCS === 'yes') {
         const swaggerDocument = YAML.load(`${__dirname}/docs/moony-admin-1.0.yaml`);
         app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
