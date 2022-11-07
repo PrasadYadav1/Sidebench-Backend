@@ -2,10 +2,17 @@
 import { RequestHandler, Request, Response } from 'express';
 import { compare } from 'bcrypt';
 import { Admin, AdminStatus, AdminRole } from '@prisma/client';
-import { OK, NOT_FOUND, BAD_REQUEST, INTERNAL_SERVER_ERROR, UNAUTHORIZED, auth } from '../utils';
+import {
+    OK,
+    NOT_FOUND,
+    BAD_REQUEST,
+    INTERNAL_SERVER_ERROR,
+    UNAUTHORIZED,
+    auth,
+    AdminStatus as AdminStatusEnum,
+} from '../utils';
 import { getAdmin } from '../db/queries';
 import { AdminModel } from '../zod/admin';
-import { AdminStatus as AdminStatusEnum } from '../utils';
 
 export const login: RequestHandler = async (req: Request, res: Response) => {
     const reqBody = AdminModel.pick({ password: true, email: true }).safeParse(req.body);

@@ -4,7 +4,7 @@ import prisma from '../index';
 export const getAdmin = async (
     where: Prisma.AdminWhereInput,
     select?: Prisma.AdminSelect,
-): Promise<{} | null | Error> => {
+): Promise<Record<string,unknown> | null | Error> => {
     try {
         const data = prisma.admin.findFirst({ where, select });
         return data;

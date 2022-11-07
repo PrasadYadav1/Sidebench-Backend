@@ -128,6 +128,6 @@ describe('Auth Test', () => {
                 Object.keys({ ...rest, token: '' }),
             );
         });
-        
+
     });
 });
