@@ -1,3 +1,4 @@
+import { Response } from 'express';
 export {
     OK,
     NOT_FOUND,
@@ -9,5 +10,8 @@ export {
     UNPROCESSABLE,
     NO_CONTENT,
 } from './httpStatus';
+export const INTERNAL_SERVER_ERROR = (res: Response, err?: string | Record<string, any>) =>
+    res.status(500).json({ errors: err ?? 'Something went wrong. Please contact support.' });
 export * as auth from './auth';
 export * from './uploadImage';
+export * from './enums';

@@ -1,2 +1,5 @@
-// eslint-disable-next-line import/prefer-default-export
-export const publicUrls = [{ url: '/app/health', methods: ['GET'] }];
+export * from './adminRoutes';
+export const publicUrls = [
+    { url: '/app/health', methods: ['GET'] },
+    { url: '/admin/login', methods: ['POST'] },
+];

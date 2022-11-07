@@ -46,4 +46,5 @@ const httpStatus: HttpStatus = {
     NO_CONTENT: <T>(data: T, req: Request, res: Response) => httpStatusMethod({}, req, res, 204),
 };
 
+
 export = httpStatus;

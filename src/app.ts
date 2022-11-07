@@ -6,11 +6,12 @@ import multer from 'multer';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { getCors, checkEnvVariables, getTokenSecret } from './config';
-import { publicUrls } from './routes';
+import { adminRoutes, publicUrls } from './routes';
 import { UNAUTHORIZED } from './utils/httpStatus';
 
 const addMiddleware: (app: Express) => Express = app => {
     // if required env variables not found logging message and exiting server
+
     if (!checkEnvVariables()) {
         process.exit(1);
     }
@@ -33,6 +34,7 @@ const addMiddleware: (app: Express) => Express = app => {
             path: publicUrls,
         }),
     );
+    app.use('/admin', adminRoutes);
     app.get('/app/health', async (req: Request, res: Response) => {
         const healthCheck = {
             uptime: process.uptime(),
