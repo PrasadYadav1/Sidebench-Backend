@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
     title: Moony Admin
-    version: "1.0"
+    version: '1.0'
 servers:
     - url: /
 paths:
@@ -11,12 +11,55 @@ paths:
             description: server health info
 
             responses:
-                "200":
+                '200':
                     description: Successful verification
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/app_health_200"
+                                $ref: '#/components/schemas/app_health_200'
+    /admin/login:
+        post:
+            description: admin login api
+            operationId: login
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/login_request_body'
+
+            responses:
+                '200':
+                    description: Successful login
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/login_response_body_200'
+                '401':
+                    description: Invalid login
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/login_response_body_401'
+                '404':
+                    description: Resource not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
 
 components:
     securitySchemes:
@@ -43,3 +86,69 @@ components:
                             type: number
                         system:
                             type: number
+        login_request_body:
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+        login_response_body_200:
+            properties:
+                data:
+                    type: object
+                    properties:
+                        email:
+                            type: string
+                        firstname:
+                            type: string
+                        lastname:
+                            type: string
+                        token:
+                            type: string
+                        id:
+                            type: integer
+                        role:
+                            type: object
+                            properties:
+                                id:
+                                    type: integer
+                                name:
+                                    type: string
+                        status:
+                            type: object
+                            properties:
+                                id:
+                                    type: integer
+                                name:
+                                    type: string
+        login_response_body_401:
+            properties:
+                errors:
+                    type: object
+                    properties:
+                        code:
+                            type: string
+                            enum: ['account_disabled', 'invalid_credentials']
+                        message:
+                            type: string
+        response_body_404_500:
+            properties:
+                errors:
+                    type: string
+        zod_errors_400:
+            properties:
+                errors:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            code:
+                                type: string
+                            type:
+                                type: string
+                            message:
+                                type: string
+                            path:
+                                type: array
+                                items:
+                                    type: string
