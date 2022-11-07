@@ -54,7 +54,9 @@ describe('Auth Test', () => {
                 .post('/admin/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(404);
-            expect(result.body.errors).toBe(`User could not found.`);
+            expect(result.body.errors).toBe(
+                `Your credentials do not match our records. Please try again.`,
+            );
         });
 
         it('Should return 401 with proper code and message when there is user but deactivated', async () => {
@@ -98,7 +100,7 @@ describe('Auth Test', () => {
             expect(result.status).toBe(401);
             expect(result.body.errors.code).toBe(`invalid_credentials`);
             expect(result.body.errors.message).toBe(
-                'Could not log you in. Please check your email and password.',
+                'Your credentials do not match our records. Please try again.',
             );
         });
 
@@ -113,8 +115,8 @@ describe('Auth Test', () => {
                 },
                 email: 'abcdef@abc.com',
                 role: {
-                   name: 'admin'
-                }
+                    name: 'admin',
+                },
             };
             getAdminMock.mockImplementationOnce(() => Promise.resolve(data));
             const result = await request(app)
@@ -124,10 +126,7 @@ describe('Auth Test', () => {
             expect(result.body.data.password).toBe(undefined);
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password, ...rest } = data;
-            expect(Object.keys(result.body.data)).toEqual(
-                Object.keys({ ...rest, token: '' }),
-            );
+            expect(Object.keys(result.body.data)).toEqual(Object.keys({ ...rest, token: '' }));
         });
-
     });
 });

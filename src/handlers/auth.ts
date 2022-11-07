@@ -41,7 +41,7 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
         return INTERNAL_SERVER_ERROR(res);
     }
     if (!admin) {
-        return NOT_FOUND('User could not found.', req, res);
+        return NOT_FOUND('Your credentials do not match our records. Please try again.', req, res);
     }
     const { password, ...rest } = admin;
     if (rest.status.name === AdminStatusEnum.deactivated) {
@@ -58,7 +58,7 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
         return UNAUTHORIZED(
             {
                 code: 'invalid_credentials',
-                message: 'Could not log you in. Please check your email and password.',
+                message: 'Your credentials do not match our records. Please try again.',
             },
             req,
             res,
