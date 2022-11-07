@@ -4,7 +4,10 @@ const prisma = new PrismaClient();
 
 async function main() {
     await Promise.all(
-        [{ id: 1, name: 'Admin' }].map(r =>
+        [
+            { id: 1, name: 'Super Admin' },
+            { id: 2, name: 'Admin' },
+        ].map(r =>
             prisma.adminRole.upsert({
                 where: { id: r.id },
                 update: {},
@@ -17,9 +20,9 @@ async function main() {
     );
     await Promise.all(
         [
-            { id: 1, name: 'pending' },
-            { id: 2, name: 'verified' },
-            { id: 3, name: 'deleted' },
+            { id: 1, name: 'Invited' },
+            { id: 2, name: 'Active' },
+            { id: 3, name: 'Deactivated' },
         ].map(r =>
             prisma.adminStatus.upsert({
                 where: { id: r.id },
