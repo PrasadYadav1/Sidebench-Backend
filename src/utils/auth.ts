@@ -5,11 +5,10 @@ const generateToken = (
     id: number,
     email: string,
     role?: string,
-    employerId?: number,
     expiresIn?: string | number,
 ): string =>
     sign(
-        { userId: id, email, role, employerId },
+        { userId: id, email, role },
         getTokenSecret() ?? '',
         expiresIn ? { expiresIn } : undefined,
     );
