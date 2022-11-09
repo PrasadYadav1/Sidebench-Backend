@@ -1,4 +1,4 @@
-import { Admin, AdminStatus, AdminRole } from '@prisma/client';
+import { Admin } from '@prisma/client';
 import { RequestHandler, Response } from 'express';
 import { Request } from 'express-jwt';
 import { getAdmin, updateAdmin } from '../db/queries';
