@@ -11,7 +11,7 @@ import {
     auth,
     AdminStatus as AdminStatusEnum,
 } from '../utils';
-import { getAdmin } from '../db/queries';
+import { getAdmin, updateAdmin } from '../db/queries';
 import { AdminModel } from '../zod/admin';
 
 export const login: RequestHandler = async (req: Request, res: Response) => {
@@ -64,6 +64,13 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
             res,
         );
     }
+
+    const updatedTimeRec = await updateAdmin({ id: admin.id }, { lastActive: new Date() });
+
+    if (updatedTimeRec instanceof Error) {
+        return INTERNAL_SERVER_ERROR(res);
+    }
+
     return OK(
         { ...rest, token: auth.default(rest.id, rest.email, rest.role.name, 86400) },
         req,

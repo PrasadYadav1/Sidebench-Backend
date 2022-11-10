@@ -1,5 +1,6 @@
 /* eslint-disable import/first */
 const getAdminMock = jest.fn();
+const updateAdminMock = jest.fn();
 
 import request from 'supertest';
 import { ZodIssue } from 'zod';
@@ -7,6 +8,7 @@ import app from '../../app';
 
 jest.mock('../../db/queries', () => ({
     getAdmin: getAdminMock,
+    updateAdmin: updateAdminMock,
 }));
 
 describe('Auth Test', () => {
@@ -102,6 +104,30 @@ describe('Auth Test', () => {
             expect(result.body.errors.message).toBe(
                 'Your credentials do not match our records. Please try again.',
             );
+        });
+        it('Should return 500 when there is an error in updating last active', async () => {
+            const data = {
+                id: 199,
+                firstname: 'test',
+                lastname: 'test1',
+                password: '$2a$12$QVGpPwAMhZFd3zAnfooZu.S1Z8OUr0usDaL1dkwncHaipGsyCOyIu',
+                status: {
+                    name: 'Active',
+                },
+                email: 'abcdef@abc.com',
+                role: {
+                    name: 'admin',
+                },
+            };
+            getAdminMock.mockImplementationOnce(() => Promise.resolve(data));
+
+            updateAdminMock.mockImplementationOnce(() =>
+                Promise.resolve(Error('Internal Server Error')),
+            );
+            const result = await request(app)
+                .post('/admin/login')
+                .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
+            expect(result.status).toBe(500);
         });
 
         it('Should return 200 with user data when credentials are valid', async () => {
