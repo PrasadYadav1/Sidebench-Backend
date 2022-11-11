@@ -29,3 +29,21 @@ export const updateAdmin = async (
         return error as Error;
     }
 };
+
+export const getAdmins = async (args: Prisma.AdminFindManyArgs): Promise<object[] | Error> => {
+    try {
+        const data = prisma.admin.findMany(args);
+        return data;
+    } catch (error) {
+        return error as Error;
+    }
+};
+
+export const getAdminsCount = async (cond?: Prisma.AdminWhereInput): Promise<number | Error> => {
+    try {
+        const count = await prisma.admin.count({ where: cond });
+        return count;
+    } catch (error: unknown) {
+        return error as Error;
+    }
+};

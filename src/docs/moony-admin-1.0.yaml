@@ -65,6 +65,8 @@ paths:
             description: api to deactivate admin
             tags:
                 - 'Admin'
+            security:
+                - bearerAuth: []
             requestBody:
                 required: true
                 content:
@@ -97,6 +99,75 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
+    /admin/get-admins:
+        get:
+            description: api to get list of asmins
+            tags:
+                - 'Admin'
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: query
+                  name: page
+                  required: false
+                  description: 'page number'
+                  schema:
+                      type: number
+                - in: query
+                  name: pageSize
+                  description: 'no of rows'
+                  required: false
+                  schema:
+                      type: number
+                - in: query
+                  name: statusId
+                  required: false
+                  schema:
+                      type: number
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: activeFrom
+                  required: false
+                  schema:
+                      type: string
+                      format: date-time
+                - in: query
+                  name: activeTo
+                  required: false
+                  schema:
+                      type: string
+                      format: date-time
+
+            responses:
+                '200':
+                    description: Successful login
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/get_admins_success_response_200'
+                '401':
+                    description: Unauthorized Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
                 '500':
                     description: Server error
                     content:
@@ -216,5 +287,44 @@ components:
             properties:
                 errors:
                     type: string
+                status:
+                    type: string
+        get_admins_success_response_200:
+            properties:
+                data:
+                    type: object
+                    properties:
+                        admins:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    id:
+                                        type: number
+                                    email:
+                                        type: string
+                                    firstname:
+                                        type: string
+                                    lastname:
+                                        type: string
+                                    roleId:
+                                        type: number
+                                    statusId:
+                                        type: number
+                                    lastActive:
+                                        type: string
+                                        format: date-time
+                                    role:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                                    status:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                        count:
+                            type: number
                 status:
                     type: string
