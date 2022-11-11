@@ -54,23 +54,24 @@ model AdminRole {
 }
 
 model Admin {
-  id        Int         @id @default(autoincrement())
-  firstname String      @map("first_name") @db.VarChar(300)
-  lastname  String      @map("last_name") @db.VarChar(300)
+  id         Int         @id @default(autoincrement())
+  firstname  String      @map("first_name") @db.VarChar(300)
+  lastname   String      @map("last_name") @db.VarChar(300)
   /// @zod.min(8,{message: 'Password length should be minimum 8 characters'})
-  password  String      @db.VarChar(1024)
-  salt      String      @db.VarChar(1024)
+  password   String      @db.VarChar(1024)
+  salt       String      @db.VarChar(1024)
   /// @zod.email('Not a valid email')
-  email     String      @db.VarChar(300)
-  roleId    Int         @map("role_id")
-  role      AdminRole   @relation(fields: [roleId], references: [id])
-  statusId  Int         @map("status_id")
-  status    AdminStatus @relation(fields: [statusId], references: [id])
-  isDeleted Boolean     @default(false) @map("is_deleted") @db.Boolean
-  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
-  createdBy Int?        @map("created_by")
-  updatedBy Int?        @map("updated_by")
+  email      String      @db.VarChar(300)
+  roleId     Int         @map("role_id")
+  role       AdminRole   @relation(fields: [roleId], references: [id])
+  statusId   Int         @map("status_id")
+  status     AdminStatus @relation(fields: [statusId], references: [id])
+  lastActive DateTime?   @map("last_active") @db.Timestamptz()
+  isDeleted  Boolean     @default(false) @map("is_deleted") @db.Boolean
+  createdAt  DateTime    @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
+  createdBy  Int?        @map("created_by")
+  updatedBy  Int?        @map("updated_by")
 
   @@map("admin")
 }

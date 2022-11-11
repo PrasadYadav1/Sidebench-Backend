@@ -9,6 +9,7 @@ export const AdminModel = z.object({
   email: z.string().email('Not a valid email'),
   roleId: z.number().int(),
   statusId: z.number().int(),
+  lastActive: z.date().nullish(),
   isDeleted: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
