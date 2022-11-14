@@ -114,7 +114,7 @@ paths:
                                 $ref: '#/components/schemas/zod_errors_400'
     /admin/get-admins:
         get:
-            description: api to get list of asmins
+            description: api to get list of admins
             tags:
                 - 'Admin'
             security:
