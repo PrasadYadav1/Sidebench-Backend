@@ -76,7 +76,7 @@ export const getAdminsData: RequestHandler = async (req: Request, res: Response)
             ...whereCondition,
             lastActive: {
                 gte: new Date(validatedQuery.activeFrom),
-                lte: new Date(validatedQuery.activeTo),
+                lte: new Date(validatedQuery.activeTo.setUTCHours(23, 59, 59, 999)),
             },
         };
     }
