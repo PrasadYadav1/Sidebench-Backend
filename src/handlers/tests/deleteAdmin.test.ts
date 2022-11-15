@@ -25,16 +25,16 @@ describe('Deactivate Admin', () => {
             jest.clearAllMocks();
         });
         it('Should return 401 for wrong url', async () => {
-            const result = await request(app).delete('/admin/deleteAdmin');
+            const result = await request(app).delete('/admins/deleteAdmin');
             expect(result.status).toBe(401);
         });
         it('Should return 401 for no auth token', async () => {
-            const result = await request(app).delete('/admin/delete-admin/3');
+            const result = await request(app).delete('/admins/delete-admin/3');
             expect(result.status).toBe(401);
         });
         it('Should return 400 when invalid req params sent', async () => {
             const result = await request(app)
-                .delete('/admin/delete-admin/a')
+                .delete('/admins/delete-admin/a')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
 
@@ -44,7 +44,7 @@ describe('Deactivate Admin', () => {
             const accessToken1 = generateToken(1, '', 'Admin');
 
             const result = await request(app)
-                .delete('/admin/delete-admin/3')
+                .delete('/admins/delete-admin/3')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken1}`);
             expect(result.status).toBe(403);
@@ -53,7 +53,7 @@ describe('Deactivate Admin', () => {
             getAdminMock.mockImplementationOnce(() => Promise.resolve(null));
 
             const result = await request(app)
-                .delete('/admin/delete-admin/3')
+                .delete('/admins/delete-admin/3')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
             expect(result.status).toBe(404);
@@ -63,7 +63,7 @@ describe('Deactivate Admin', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .delete('/admin/delete-admin/3')
+                .delete('/admins/delete-admin/3')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
             expect(result.status).toBe(500);
@@ -78,7 +78,7 @@ describe('Deactivate Admin', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .delete('/admin/delete-admin/3')
+                .delete('/admins/delete-admin/3')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
             expect(result.status).toBe(500);
@@ -92,7 +92,7 @@ describe('Deactivate Admin', () => {
             updateAdminMock.mockImplementationOnce(() => Promise.resolve({ id: 3 }));
 
             const result = await request(app)
-                .delete('/admin/delete-admin/3')
+                .delete('/admins/delete-admin/3')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
             expect(result.status).toBe(200);

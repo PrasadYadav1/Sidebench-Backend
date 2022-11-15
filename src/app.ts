@@ -36,7 +36,7 @@ const addMiddleware: (app: Express) => Express = app => {
             path: publicUrls,
         }),
     );
-    app.use('/admin', adminRoutes);
+    app.use('/admins', adminRoutes);
     app.get('/app/health', async (req: Request, res: Response) => {
         const healthCheck = {
             uptime: process.uptime(),
