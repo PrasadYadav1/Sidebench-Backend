@@ -345,7 +345,7 @@ components:
                 data:
                     type: object
                     properties:
-                        admins:
+                        rows:
                             type: array
                             items:
                                 type: object

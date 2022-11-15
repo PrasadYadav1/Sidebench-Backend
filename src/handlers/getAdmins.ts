@@ -117,7 +117,7 @@ export const getAdminsData: RequestHandler = async (req: Request, res: Response)
     if (count instanceof Error) {
         return res.status(500).json({ errors: 'Something went wrong.' });
     }
-    return OK({ admins, count }, req, res);
+    return OK({ rows: admins, count }, req, res);
 };
 
 export default getAdminsData;
