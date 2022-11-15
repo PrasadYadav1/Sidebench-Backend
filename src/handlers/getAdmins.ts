@@ -71,12 +71,17 @@ export const getAdminsData: RequestHandler = async (req: Request, res: Response)
     }
 
     // date filter
+
     if (validatedQuery.activeFrom && validatedQuery.activeTo) {
         whereCondition = {
             ...whereCondition,
             lastActive: {
                 gte: new Date(validatedQuery.activeFrom),
-                lte: new Date(validatedQuery.activeTo.setUTCHours(23, 59, 59, 999)),
+                lte: new Date(
+                    `${validatedQuery.activeTo.getFullYear()}-${
+                        validatedQuery.activeTo.getMonth() + 1
+                    }-${validatedQuery.activeTo.getDate()} 23:59:59:999`,
+                ),
             },
         };
     }
