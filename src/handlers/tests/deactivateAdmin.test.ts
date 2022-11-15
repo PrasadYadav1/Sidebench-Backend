@@ -25,16 +25,16 @@ describe('Deactivate Admin', () => {
             jest.clearAllMocks();
         });
         it('Should return 401 for wrong url', async () => {
-            const result = await request(app).put('/admin/deactivateAdmin');
+            const result = await request(app).put('/admins/deactivateAdmin');
             expect(result.status).toBe(401);
         });
         it('Should return 401 for no auth token', async () => {
-            const result = await request(app).put('/admin/deactivate-admin');
+            const result = await request(app).put('/admins/deactivate-admin');
             expect(result.status).toBe(401);
         });
         it('Should return 400 when no req body sent', async () => {
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
 
@@ -44,7 +44,7 @@ describe('Deactivate Admin', () => {
             const accessToken1 = generateToken(1, '', 'Admin');
 
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken1}`)
                 .send({ id: 2 });
@@ -55,7 +55,7 @@ describe('Deactivate Admin', () => {
             getAdminMock.mockImplementationOnce(() => Promise.resolve(null));
 
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`)
                 .send({ id: 2 });
@@ -67,7 +67,7 @@ describe('Deactivate Admin', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`)
                 .send({ id: 2 });
@@ -84,7 +84,7 @@ describe('Deactivate Admin', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`)
                 .send({ id: 2 });
@@ -100,7 +100,7 @@ describe('Deactivate Admin', () => {
             updateAdminMock.mockImplementationOnce(() => Promise.resolve({ id: 2 }));
 
             const result = await request(app)
-                .put('/admin/deactivate-admin')
+                .put('/admins/deactivate-admin')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`)
                 .send({ id: 2 });

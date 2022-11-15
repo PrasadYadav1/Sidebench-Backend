@@ -17,7 +17,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/app_health_200'
-    /admin/login:
+    /admins/login:
         post:
             description: admin login api
             operationId: login
@@ -60,7 +60,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
-    /admin/deactivate-admin:
+    /admins/deactivate-admin:
         put:
             description: api to deactivate admin
             tags:
@@ -112,7 +112,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
-    /admin/get-admins:
+    /admins:
         get:
             description: api to get list of admins
             tags:
@@ -181,7 +181,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
-    /admin/delete-admin/{id}:
+    /admins/delete-admin/{id}:
         delete:
             description: api to delete admin
             tags:
@@ -345,7 +345,7 @@ components:
                 data:
                     type: object
                     properties:
-                        admins:
+                        rows:
                             type: array
                             items:
                                 type: object

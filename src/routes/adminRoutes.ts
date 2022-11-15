@@ -8,6 +8,6 @@ adminRoutes.post('/login', cors(), login);
 
 adminRoutes.put('/deactivate-admin', deactivateAdmin);
 
-adminRoutes.get('/get-admins', getAdminsData);
+adminRoutes.get('/', getAdminsData);
 
 adminRoutes.delete('/delete-admin/:id', deleteAdmin);

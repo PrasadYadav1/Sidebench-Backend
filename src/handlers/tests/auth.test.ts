@@ -20,11 +20,11 @@ describe('Auth Test', () => {
             jest.clearAllMocks();
         });
         it('Should return 401 for wrong url', async () => {
-            const result = await request(app).get('/admin/logins');
+            const result = await request(app).get('/admins/logins');
             expect(result.status).toBe(401);
         });
         it('Should return 400 for empty body', async () => {
-            const result = await request(app).post('/admin/login').send({});
+            const result = await request(app).post('/admins/login').send({});
             expect(result.status).toBe(400);
             expect(result.body.errors.length).toBe(2);
             expect(new Set(result.body.errors.map((e: ZodIssue) => e.path[0]))).toEqual(
@@ -33,7 +33,7 @@ describe('Auth Test', () => {
         });
         it('Should return 400 for wrong email', async () => {
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef' });
             expect(result.status).toBe(400);
             expect(result.body.errors.length).toBe(1);
@@ -45,7 +45,7 @@ describe('Auth Test', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(500);
         });
@@ -53,7 +53,7 @@ describe('Auth Test', () => {
         it('Should return 404 when there is no user', async () => {
             getAdminMock.mockImplementationOnce(() => Promise.resolve(null));
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(404);
             expect(result.body.errors).toBe(
@@ -75,7 +75,7 @@ describe('Auth Test', () => {
                 }),
             );
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(401);
             expect(result.body.errors.code).toBe(`account_disabled`);
@@ -97,7 +97,7 @@ describe('Auth Test', () => {
                 }),
             );
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(401);
             expect(result.body.errors.code).toBe(`invalid_credentials`);
@@ -125,7 +125,7 @@ describe('Auth Test', () => {
                 Promise.resolve(Error('Internal Server Error')),
             );
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(500);
         });
@@ -146,7 +146,7 @@ describe('Auth Test', () => {
             };
             getAdminMock.mockImplementationOnce(() => Promise.resolve(data));
             const result = await request(app)
-                .post('/admin/login')
+                .post('/admins/login')
                 .send({ password: 'bgfvhdhvhd', email: 'abcdef@abc.com' });
             expect(result.status).toBe(200);
             expect(result.body.data.password).toBe(undefined);
