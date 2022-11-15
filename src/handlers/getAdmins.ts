@@ -46,6 +46,7 @@ export const getAdminsData: RequestHandler = async (req: Request, res: Response)
     // search
     if (validatedQuery.search) {
         whereCondition = {
+            ...whereCondition,
             OR: [
                 {
                     firstname: { contains: validatedQuery.search },
