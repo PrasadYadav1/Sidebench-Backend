@@ -75,3 +75,90 @@ model Admin {
 
   @@map("admin")
 }
+
+model LookbookStatus {
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(20)
+  isDeleted Boolean    @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+  lookbooks Lookbook[]
+  looks     Look[]
+
+  @@map("lookbook_status")
+}
+
+model Lookbook {
+  id         Int            @id @default(autoincrement())
+  customerId Int            @map("customer_id")
+  noOfLooks  Int            @map("no_of_looks") // no of looks to be created in lookbook based on subscription
+  statusId   Int            @map("status_id")
+  status     LookbookStatus @relation(fields: [statusId], references: [id])
+  occasion   String         @db.VarChar(300)
+  dueBy      DateTime       @map("due_by") @db.Timestamptz()
+  sentAt     DateTime?      @map("sent_at") @db.Timestamptz()
+  isDeleted  Boolean        @default(false) @map("is_deleted") @db.Boolean
+  createdAt  DateTime       @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime       @default(now()) @map("updated_at") @db.Timestamptz()
+  createdBy  Int?           @map("created_by")
+  updatedBy  Int?           @map("updated_by")
+  looks      Look[]
+
+  @@map("lookbook")
+}
+
+model Look {
+  id         Int            @id @default(autoincrement())
+  customerId Int            @map("customer_id")
+  lookbookId Int            @map("lookbook_id")
+  lookbook   Lookbook       @relation(fields: [lookbookId], references: [id])
+  statusId   Int            @map("status_id")
+  status     LookbookStatus @relation(fields: [statusId], references: [id])
+  occasion   String         @db.VarChar(300)
+  isDeleted  Boolean        @default(false) @map("is_deleted") @db.Boolean
+  createdAt  DateTime       @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime       @default(now()) @map("updated_at") @db.Timestamptz()
+  createdBy  Int?           @map("created_by")
+  updatedBy  Int?           @map("updated_by")
+  lookItems  LookItems[]
+
+  @@map("look")
+}
+
+model Item {
+  id            Int         @id @default(autoincrement())
+  url           String      @db.VarChar(1024)
+  imageUrl      String      @map("image_url") @db.VarChar(1024)
+  name          String      @db.VarChar(300)
+  price         Int
+  itemType      Int[]       @map("item_type")
+  attireType    Int[]       @map("attire_type")
+  wearType      Int[]       @map("wear_type")
+  season        Int[]       @map("season")
+  color         Int[]       @map("color")
+  fit           Int[]       @map("fit")
+  waistLocation Int[]       @map("waist_location")
+  keyword       Int[]       @map("keyword")
+  sizeAvailable Int[]       @map("size_available")
+  isDeleted     Boolean     @default(false) @map("is_deleted") @db.Boolean
+  createdAt     DateTime    @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt     DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
+  lookItems     LookItems[]
+
+  @@map("item")
+}
+
+model LookItems {
+  id        Int      @id @default(autoincrement())
+  lookId    Int      @map("look_id")
+  look      Look     @relation(fields: [lookId], references: [id])
+  itemId    Int      @map("item_id")
+  item      Item     @relation(fields: [itemId], references: [id])
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+  createdBy Int?     @map("created_by")
+  updatedBy Int?     @map("updated_by")
+
+  @@map("look_items")
+}
