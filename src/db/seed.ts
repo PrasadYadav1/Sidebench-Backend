@@ -86,14 +86,14 @@ async function main() {
             { id: 7, itemTypeId:8, name: 'Boots' },
             { id: 8, itemTypeId:8, name: 'Mules' },
             { id: 9, itemTypeId:8, name: 'Pumps' },
-            { id: 5, itemTypeId:8, name: 'Heeled Boots' },
-            { id: 6, itemTypeId:9, name: 'Jewelry' },
-            { id: 7, itemTypeId:9, name: 'Bags' },
-            { id: 8, itemTypeId:9, name: 'Belts' },
-            { id: 9, itemTypeId:9, name: 'Hair Accessories' },
-            { id: 9, itemTypeId:9, name: 'Sunglasses' },
-            { id: 9, itemTypeId:9, name: 'Hat' },
-            { id: 9, itemTypeId:9, name: 'Scarves' },
+            { id: 10, itemTypeId:8, name: 'Heeled Boots' },
+            { id: 11, itemTypeId:9, name: 'Jewelry' },
+            { id: 12, itemTypeId:9, name: 'Bags' },
+            { id: 13, itemTypeId:9, name: 'Belts' },
+            { id: 14, itemTypeId:9, name: 'Hair Accessories' },
+            { id: 15, itemTypeId:9, name: 'Sunglasses' },
+            { id: 16, itemTypeId:9, name: 'Hat' },
+            { id: 17, itemTypeId:9, name: 'Scarves' },
         ].map(r =>
             prisma.itemSubType.upsert({
                 where: { id: r.id },
@@ -128,9 +128,9 @@ async function main() {
 
     await Promise.all(
         [
-            { id: 1, itemSUbTypeId:1, name: 'Necklace' },
-            { id: 2, itemSubTypeId:1, name: 'Rings' },
-            { id: 3, itemSubTypeId:8, name: 'Bracelet' },
+            { id: 1, itemSubTypeId:11, name: 'Necklace' },
+            { id: 2, itemSubTypeId:11, name: 'Rings' },
+            { id: 3, itemSubTypeId:11, name: 'Bracelet' },
         ].map(r =>
             prisma.jewelryType.upsert({
                 where: { id: r.id },
