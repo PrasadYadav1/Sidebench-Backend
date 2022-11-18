@@ -125,27 +125,346 @@ model Look {
   @@map("look")
 }
 
+model ItemType {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(20)
+  isDeleted   Boolean       @default(false) @map("is_deleted") @db.Boolean
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime      @default(now()) @map("updated_at") @db.Timestamptz()
+  item        Item[]
+  itemSubType ItemSubType[]
+  shoeHeight  ShoeHeight[]
+
+  @@map("item_type")
+}
+
+model ItemSubType {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(20)
+  isDeleted          Boolean              @default(false) @map("is_deleted") @db.Boolean
+  createdAt          DateTime             @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt          DateTime             @default(now()) @map("updated_at") @db.Timestamptz()
+  itemTypeId         Int                  @map("item_type_id")
+  itemType           ItemType             @relation(fields: [itemTypeId], references: [id])
+  itemOnItemSubTypes ItemOnItemSubTypes[]
+  jewelryType        JewelryType[]
+
+  @@map("item_sub_type")
+}
+
+model ShoeHeight {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(20)
+  isDeleted        Boolean            @default(false) @map("is_deleted") @db.Boolean
+  createdAt        DateTime           @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt        DateTime           @default(now()) @map("updated_at") @db.Timestamptz()
+  itemTypeId       Int                @map("item_type_id")
+  itemType         ItemType           @relation(fields: [itemTypeId], references: [id])
+  itemOnShoeHeight ItemOnShoeHeight[]
+
+  @@map("shoe_height")
+}
+
+model JewelryType {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(20)
+  isDeleted         Boolean             @default(false) @map("is_deleted") @db.Boolean
+  createdAt         DateTime            @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime            @default(now()) @map("updated_at") @db.Timestamptz()
+  itemSubTypeId     Int                 @map("item_sub_type_id")
+  itemSubType       ItemSubType         @relation(fields: [itemSubTypeId], references: [id])
+  itemOnJewelryType ItemOnJewelryType[]
+
+  @@map("jewelry_type")
+}
+
+model AttireType {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(20)
+  isDeleted         Boolean             @default(false) @map("is_deleted") @db.Boolean
+  createdAt         DateTime            @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime            @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnAttireTypes ItemOnAttireTypes[]
+
+  @@map("attire_type")
+}
+
+model WearType {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(20)
+  isDeleted       Boolean           @default(false) @map("is_deleted") @db.Boolean
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnWearTypes ItemOnWearTypes[]
+
+  @@map("wear_type")
+}
+
+model Season {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(20)
+  isDeleted     Boolean         @default(false) @map("is_deleted") @db.Boolean
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnSeasons ItemOnSeasons[]
+
+  @@map("season")
+}
+
+model Color {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(20)
+  isDeleted    Boolean        @default(false) @map("is_deleted") @db.Boolean
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime       @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnColors ItemOnColors[]
+
+  @@map("color")
+}
+
+model Fit {
+  id        Int         @id @default(autoincrement())
+  name      String      @db.VarChar(20)
+  isDeleted Boolean     @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnFit ItemOnFit[]
+
+  @@map("fit")
+}
+
+model WaistLocation {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(20)
+  isDeleted           Boolean               @default(false) @map("is_deleted") @db.Boolean
+  createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt           DateTime              @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnWaistLocation ItemOnWaistLocation[]
+
+  @@map("waist_location")
+}
+
+model KeyWord {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(20)
+  isDeleted     Boolean         @default(false) @map("is_deleted") @db.Boolean
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnKeyword ItemOnKeyword[]
+
+  @@map("key_word")
+}
+
+model ClothSize {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(20)
+  usa             String            @db.VarChar(20)
+  uk              String            @db.VarChar(20)
+  au              String            @db.VarChar(20)
+  denim           String            @db.VarChar(20)
+  isDeleted       Boolean           @default(false) @map("is_deleted") @db.Boolean
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnClothSize ItemOnClothSize[]
+
+  @@map("cloth_size")
+}
+
+model ShoeSize {
+  id             Int              @id @default(autoincrement())
+  usa            String           @db.VarChar(20)
+  uk             String           @db.VarChar(20)
+  isDeleted      Boolean          @default(false) @map("is_deleted") @db.Boolean
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamptz()
+  itemOnShoeSize ItemOnShoeSize[]
+
+  @@map("shoe_size")
+}
+
 model Item {
+  id                  Int                   @id @default(autoincrement())
+  url                 String                @db.VarChar(1024)
+  imageUrl            String                @map("image_url") @db.VarChar(1024)
+  name                String                @db.VarChar(300)
+  price               Int
+  sizeAvailable       Int[]                 @map("size_available")
+  isDeleted           Boolean               @default(false) @map("is_deleted") @db.Boolean
+  createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt           DateTime              @default(now()) @map("updated_at") @db.Timestamptz()
+  lookItems           LookItems[]
+  itemTypeId          Int                   @map("itemType_id")
+  itemType            ItemType              @relation(fields: [itemTypeId], references: [id])
+  itemSubTypes        ItemOnItemSubTypes[]
+  itemOnAttireTypes   ItemOnAttireTypes[]
+  itemOnWearTypes     ItemOnWearTypes[]
+  itemOnSeasons       ItemOnSeasons[]
+  itemOnColors        ItemOnColors[]
+  itemOnFit           ItemOnFit[]
+  itemOnWaistLocation ItemOnWaistLocation[]
+  itemOnKeyword       ItemOnKeyword[]
+  itemOnClothSize     ItemOnClothSize[]
+  itemOnShoeSize      ItemOnShoeSize[]
+  itemOnShoeHeight    ItemOnShoeHeight[]
+  itemOnJewelryType   ItemOnJewelryType[]
+
+  @@map("item")
+}
+
+model ItemOnItemSubTypes {
   id            Int         @id @default(autoincrement())
-  url           String      @db.VarChar(1024)
-  imageUrl      String      @map("image_url") @db.VarChar(1024)
-  name          String      @db.VarChar(300)
-  price         Int
-  itemType      Int[]       @map("item_type")
-  attireType    Int[]       @map("attire_type")
-  wearType      Int[]       @map("wear_type")
-  season        Int[]       @map("season")
-  color         Int[]       @map("color")
-  fit           Int[]       @map("fit")
-  waistLocation Int[]       @map("waist_location")
-  keyword       Int[]       @map("keyword")
-  sizeAvailable Int[]       @map("size_available")
+  item          Item        @relation(fields: [itemId], references: [id])
+  itemSubType   ItemSubType @relation(fields: [itemSubTypeId], references: [id])
+  itemId        Int
+  itemSubTypeId Int
   isDeleted     Boolean     @default(false) @map("is_deleted") @db.Boolean
   createdAt     DateTime    @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt     DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
-  lookItems     LookItems[]
 
-  @@map("item")
+  @@map("item_on_item_sub_types")
+}
+
+model ItemOnAttireTypes {
+  id           Int        @id @default(autoincrement())
+  item         Item       @relation(fields: [itemId], references: [id])
+  attireType   AttireType @relation(fields: [attireTypeId], references: [id])
+  itemId       Int
+  attireTypeId Int
+  isDeleted    Boolean    @default(false) @map("is_deleted") @db.Boolean
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_attire_types")
+}
+
+model ItemOnWearTypes {
+  id         Int      @id @default(autoincrement())
+  item       Item     @relation(fields: [itemId], references: [id])
+  wearType   WearType @relation(fields: [wearTypeId], references: [id])
+  itemId     Int
+  wearTypeId Int
+  isDeleted  Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_wear_types")
+}
+
+model ItemOnSeasons {
+  id        Int      @id @default(autoincrement())
+  item      Item     @relation(fields: [itemId], references: [id])
+  season    Season   @relation(fields: [seasonId], references: [id])
+  itemId    Int
+  seasonId  Int
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_seasons")
+}
+
+model ItemOnColors {
+  id        Int      @id @default(autoincrement())
+  item      Item     @relation(fields: [itemId], references: [id])
+  color     Color    @relation(fields: [colorId], references: [id])
+  itemId    Int
+  colorId   Int
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_colors")
+}
+
+model ItemOnFit {
+  id        Int      @id @default(autoincrement())
+  item      Item     @relation(fields: [itemId], references: [id])
+  fit       Fit      @relation(fields: [fitId], references: [id])
+  itemId    Int
+  fitId     Int
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_fit")
+}
+
+model ItemOnWaistLocation {
+  id              Int           @id @default(autoincrement())
+  item            Item          @relation(fields: [itemId], references: [id])
+  waistLocation   WaistLocation @relation(fields: [waistLocationId], references: [id])
+  itemId          Int
+  waistLocationId Int
+  isDeleted       Boolean       @default(false) @map("is_deleted") @db.Boolean
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime      @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_waist_location")
+}
+
+model ItemOnKeyword {
+  id        Int      @id @default(autoincrement())
+  item      Item     @relation(fields: [itemId], references: [id])
+  keyword   KeyWord  @relation(fields: [keywordId], references: [id])
+  itemId    Int
+  keywordId Int
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_keyword")
+}
+
+model ItemOnClothSize {
+  id          Int       @id @default(autoincrement())
+  item        Item      @relation(fields: [itemId], references: [id])
+  clothSize   ClothSize @relation(fields: [clothSizeId], references: [id])
+  itemId      Int
+  clothSizeId Int
+  isDeleted   Boolean   @default(false) @map("is_deleted") @db.Boolean
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_cloth_size")
+}
+
+model ItemOnShoeSize {
+  id         Int      @id @default(autoincrement())
+  item       Item     @relation(fields: [itemId], references: [id])
+  shoeSize   ShoeSize @relation(fields: [shoeSizeId], references: [id])
+  itemId     Int
+  shoeSizeId Int
+  isDeleted  Boolean  @default(false) @map("is_deleted") @db.Boolean
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_shoe_size")
+}
+
+model ItemOnShoeHeight {
+  id           Int        @id @default(autoincrement())
+  item         Item       @relation(fields: [itemId], references: [id])
+  shoeHeight   ShoeHeight @relation(fields: [shoeHeightId], references: [id])
+  itemId       Int
+  shoeHeightId Int
+  isDeleted    Boolean    @default(false) @map("is_deleted") @db.Boolean
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_shoe_height")
+}
+
+model ItemOnJewelryType {
+  id            Int         @id @default(autoincrement())
+  item          Item        @relation(fields: [itemId], references: [id])
+  jewelryType   JewelryType @relation(fields: [jewelryTypeId], references: [id])
+  itemId        Int
+  jewelryTypeId Int
+  isDeleted     Boolean     @default(false) @map("is_deleted") @db.Boolean
+  createdAt     DateTime    @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt     DateTime    @default(now()) @map("updated_at") @db.Timestamptz()
+
+  @@map("item_on_jewelry_type")
 }
 
 model LookItems {
