@@ -5,6 +5,7 @@ import {
     deleteAdmin,
     editAdminsName,
     getAdminsData,
+    getAllMasterData,
     getLookbooksData,
     login,
 } from '../handlers';
@@ -22,3 +23,5 @@ adminRoutes.delete('/delete-admin/:id', deleteAdmin);
 adminRoutes.get('/lookbooks', getLookbooksData);
 
 adminRoutes.put('/update-admin', editAdminsName);
+
+adminRoutes.get('/master-data', getAllMasterData);
