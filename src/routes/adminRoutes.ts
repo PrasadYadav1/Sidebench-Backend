@@ -17,7 +17,7 @@ adminRoutes.put('/deactivate-admin', deactivateAdmin);
 
 adminRoutes.get('/', getAdminsData);
 
-adminRoutes.delete('/delete-admin/:id', deleteAdmin);
+adminRoutes.delete('/:id', deleteAdmin);
 
 adminRoutes.get('/lookbooks', getLookbooksData);
 

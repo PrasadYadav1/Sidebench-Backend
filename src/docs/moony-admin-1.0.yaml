@@ -181,7 +181,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
-    /admins/delete-admin/{id}:
+    /admins/{id}:
         delete:
             description: api to delete admin
             tags:
