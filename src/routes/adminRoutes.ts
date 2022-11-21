@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import cors from 'cors';
 import {
+    changePassword,
     deactivateAdmin,
     deleteAdmin,
     editAdminsName,
@@ -22,3 +23,5 @@ adminRoutes.delete('/delete-admin/:id', deleteAdmin);
 adminRoutes.get('/lookbooks', getLookbooksData);
 
 adminRoutes.put('/update-admin', editAdminsName);
+
+adminRoutes.put('/change-password', changePassword);
