@@ -137,12 +137,12 @@ describe('Lookbooks list', () => {
             expect(result.body.data.count).toBe(3);
         });
 
-        it('Should return 200 when filters applied', async () => {
+        it('Should return 200 when filters and search applied', async () => {
             getLookbooksMock.mockImplementationOnce(() => Promise.resolve(dbData));
 
             const result = await request(app)
                 .get(
-                    '/admins/lookbooks?noOfLooks=5&fromDate=2022-11-05T08:06:21.533Z&toDate=2022-11-11T06:30:01.671Z',
+                    '/admins/lookbooks?noOfLooks=5&fromDate=2022-11-05T08:06:21.533Z&toDate=2022-11-11T06:30:01.671Z&search=test',
                 )
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `bearer ${accessToken}`);
