@@ -1,15 +1,23 @@
 /* eslint-disable no-nested-ternary */
 import { Lookbook, LookbookStatus, Prisma } from '@prisma/client';
 import { Request, RequestHandler, Response } from 'express';
-import { object, RefinementCtx, ZodIssueCode } from 'zod';
+import { object, RefinementCtx, string, ZodIssueCode } from 'zod';
 import { getLookbooks, getLookbooksCount } from '../db/queries';
-import { BAD_REQUEST, dateSchema, LookbookStatusEnum, NumberType, OK } from '../utils';
+import {
+    BAD_REQUEST,
+    dateSchema,
+    getItemElasticSearch,
+    LookbookStatusEnum,
+    NumberType,
+    OK,
+} from '../utils';
 
 export const getLookbooksData: RequestHandler = async (req: Request, res: Response) => {
     const resultQuery = object({
         noOfLooks: NumberType.optional(),
         fromDate: dateSchema.optional(),
         toDate: dateSchema.optional(),
+        search: string().optional(),
     })
         .strip()
         .superRefine((val, ctx: RefinementCtx) => {
@@ -63,6 +71,23 @@ export const getLookbooksData: RequestHandler = async (req: Request, res: Respon
         };
     }
 
+    // filter with item
+    if (validatedQuery.search) {
+        const itemQuery = getItemElasticSearch(validatedQuery.search);
+
+        whereCondition = {
+            ...whereCondition,
+            looks: {
+                some: {
+                    lookItems: {
+                        some: {
+                            item: itemQuery,
+                        },
+                    },
+                },
+            },
+        };
+    }
     // fetch lookbooks
 
     const lookbooksRecords:

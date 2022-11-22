@@ -21,3 +21,4 @@ export * from './uploadImage';
 export * from './enums';
 export * from './defaultParameters';
 export * from './validationSchema';
+export * from './itemSearchQuery';
