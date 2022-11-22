@@ -288,7 +288,6 @@ model Item {
   imageUrl            String                @map("image_url") @db.VarChar(1024)
   name                String                @db.VarChar(300)
   price               Int
-  sizeAvailable       Int[]                 @map("size_available")
   isDeleted           Boolean               @default(false) @map("is_deleted") @db.Boolean
   createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt           DateTime              @default(now()) @map("updated_at") @db.Timestamptz()

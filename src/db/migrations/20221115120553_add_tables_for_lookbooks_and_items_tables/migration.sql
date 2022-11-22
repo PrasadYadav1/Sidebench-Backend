@@ -58,7 +58,6 @@ CREATE TABLE "item" (
     "fit" INTEGER[],
     "waist_location" INTEGER[],
     "keyword" INTEGER[],
-    "size_available" INTEGER[],
     "is_deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
