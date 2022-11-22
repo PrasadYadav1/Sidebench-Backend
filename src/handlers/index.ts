@@ -5,3 +5,5 @@ export * from './deleteAdmin';
 export * from './getLookbooks';
 export * from './editAdmin';
 export * from './changePassword';
+export * from './getAllMasterData'
+

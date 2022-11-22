@@ -17,6 +17,39 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/app_health_200'
+    /admins/master-data:
+        get:
+            description: api to get list of master data
+            tags:
+                - 'Master Data'
+            security:
+                - bearerAuth: []
+            responses:
+                '200':
+                    description: Successful login
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/get_admins_success_response_200'
+                '401':
+                    description: Unauthorized Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
     /admins/login:
         post:
             description: admin login api
@@ -181,7 +214,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
-    /admins/delete-admin/{id}:
+    /admins/{id}:
         delete:
             description: api to delete admin
             tags:
