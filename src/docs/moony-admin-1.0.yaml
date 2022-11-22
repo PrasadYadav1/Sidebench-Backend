@@ -369,6 +369,58 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
+    /admins/change-password:
+        put:
+            description: api to update admin password
+            tags:
+                - 'Admin'
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/change_password_request_body'
+
+            responses:
+                '200':
+                    description: Success response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/deactivate_admin_success_response_200'
+                '401':
+                    description: Unauthorized Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '409':
+                    description: Conflict Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '404':
+                    description: Resource not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
 
 components:
     securitySchemes:
@@ -578,4 +630,10 @@ components:
                 firstname:
                     type: string
                 lastname:
+                    type: string
+        change_password_request_body:
+            properties:
+                password:
+                    type: string
+                confirmPasswrd:
                     type: string
