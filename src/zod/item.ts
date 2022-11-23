@@ -6,7 +6,6 @@ export const ItemModel = z.object({
   imageUrl: z.string(),
   name: z.string(),
   price: z.number().int(),
-  sizeAvailable: z.number().int().array(),
   isDeleted: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
