@@ -7,6 +7,7 @@ import {
     editAdminsName,
     getAdminsData,
     getAllMasterData,
+    getItemsData,
     getLookbooksData,
     login,
 } from '../handlers';
@@ -28,3 +29,5 @@ adminRoutes.put('/update-admin', editAdminsName);
 adminRoutes.put('/change-password', changePassword);
 
 adminRoutes.get('/master-data', getAllMasterData);
+
+adminRoutes.get('/items', getItemsData);
