@@ -802,6 +802,21 @@ components:
                                         type: string
                                     uk:
                                         type: string
+                        currencies:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    id:
+                                        type: number
+                                    country:
+                                        type: string
+                                    name:
+                                        type: string
+                                    code:
+                                        type: string
+                                    symbol:
+                                        type: string
 
         get_admins_success_response_200:
             properties:
@@ -854,14 +869,35 @@ components:
                                 properties:
                                     id:
                                         type: number
+                                    itemNumber:
+                                        type: string
                                     url:
                                         type: string
                                     imageUrl:
                                         type: string
                                     name:
                                         type: string
+                                    brand:
+                                        type: string
+                                    currencyId:
+                                        type: number
+                                    currency:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: number
+                                            country:
+                                                type: string
+                                            name:
+                                                type: string
+                                            code:
+                                                type: string
+                                            symbol:
+                                                type: string
                                     price:
                                         type: number
+                                    description:
+                                        type: string
                                     itemTypeId:
                                         type: number
                                     itemType:
