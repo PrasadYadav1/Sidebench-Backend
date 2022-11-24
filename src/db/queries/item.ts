@@ -18,3 +18,15 @@ export const getItemsCount = async (cond?: Prisma.ItemWhereInput): Promise<numbe
         return error as Error;
     }
 };
+
+export const getItem = async (
+    where: Prisma.ItemWhereInput,
+    select?: Prisma.ItemSelect,
+): Promise<object | null | Error> => {
+    try {
+        const data = prisma.item.findFirst({ where, select });
+        return data;
+    } catch (error) {
+        return error as Error;
+    }
+};

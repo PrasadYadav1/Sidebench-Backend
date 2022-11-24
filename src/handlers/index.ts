@@ -7,3 +7,4 @@ export * from './editAdmin';
 export * from './changePassword';
 export * from './getAllMasterData';
 export * from './getItems';
+export * from './itemDetails';
