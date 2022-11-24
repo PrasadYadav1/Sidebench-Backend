@@ -6,6 +6,7 @@ export const getMasterData = async (): Promise<object | Error> => {
             select: {
                 id: true,
                 name: true,
+                typeName: true,
                 itemSubType: {
                     select: {
                         id: true,
@@ -53,6 +54,11 @@ export const getMasterData = async (): Promise<object | Error> => {
             select: { id: true, usa: true, uk: true },
             orderBy: { id: 'asc' },
         });
+        const currencies = await prisma.currency.findMany({
+            select: { id: true, country: true, name: true, code: true, symbol: true },
+            orderBy: { id: 'asc' },
+        });
+
         const data = {
             itemTypes,
             attireTypes,
@@ -64,6 +70,7 @@ export const getMasterData = async (): Promise<object | Error> => {
             keyWords,
             clothSizes,
             shoeSizes,
+            currencies,
         };
         return data;
     } catch (error) {
