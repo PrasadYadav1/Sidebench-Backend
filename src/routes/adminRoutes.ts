@@ -8,6 +8,7 @@ import {
     getAdminsData,
     getAllMasterData,
     getItemsData,
+    getItemDetails,
     getLookbooksData,
     login,
 } from '../handlers';
@@ -31,3 +32,5 @@ adminRoutes.put('/change-password', changePassword);
 adminRoutes.get('/master-data', getAllMasterData);
 
 adminRoutes.get('/items', getItemsData);
+
+adminRoutes.get('/items/:id', getItemDetails);
