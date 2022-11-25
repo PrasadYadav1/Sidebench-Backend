@@ -12,6 +12,7 @@ import {
     getLookbooksData,
     createItem,
     login,
+    updateAdminPassword,
 } from '../handlers';
 
 export const adminRoutes: Router = Router();
@@ -37,3 +38,5 @@ adminRoutes.get('/items', getItemsData);
 adminRoutes.post('/items', createItem);
 
 adminRoutes.get('/items/:id', getItemDetails);
+
+adminRoutes.put('/reset-password', updateAdminPassword);
