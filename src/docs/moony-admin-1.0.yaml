@@ -422,6 +422,51 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
     /admins/items:
+        post:
+            description: add item api
+            tags:
+                - 'Item'
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/add_item_request_body'
+
+            responses:
+                '200':
+                    description: Successful added item
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/add_item_success_response_200'
+                '401':
+                    description: Invalid item
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/login_response_body_401'
+                '404':
+                    description: Resource not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
         get:
             description: api to get list of items
             tags:
@@ -1210,3 +1255,134 @@ components:
 
                 status:
                     type: string
+        add_item_request_body:
+            required: ['url', 'imageUrl', 'name', 'currencyId', 'price', 'itemTypeId']
+            properties:
+                url:
+                    type: string
+                imageUrl:
+                    type: string
+                name:
+                    type: string
+                brand:
+                    type: string
+                currencyId:
+                    type: number
+                price:
+                    type: number
+                description:
+                    type: string
+                itemTypeId:
+                    type: number
+                itemSubTypes:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            itemSubTypeId:
+                                type: number
+                itemOnAttireTypes:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            attireTypeId:
+                                type: number
+                                required: true
+                itemOnWearTypes:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            wearTypeId:
+                                type: number
+                                required: true
+                itemOnSeasons:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            seasonId:
+                                type: number
+                                required: true
+                itemOnColors:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            colorId:
+                                type: number
+                                required: true
+                itemOnFit:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            fitId:
+                                type: number
+                                required: true
+                itemOnWaistLocation:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            waistLocationId:
+                                type: number
+                                required: true
+                itemOnKeyword:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            keywordId:
+                                type: number
+                                required: true
+                itemOnClothSize:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            clothSizeId:
+                                type: number
+                itemOnShoeSize:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            shoeSizeId:
+                                type: number
+                itemOnShoeHeight:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            shoeHeightId:
+                                type: number
+                itemOnJewelryType:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            jewelryTypeId:
+                                type: number
+
+        add_item_success_response_200:
+            properties:
+                id:
+                    type: number
+                url:
+                    type: string
+                imageUrl:
+                    type: string
+                name:
+                    type: string
+                brand:
+                    type: string
+                currencyId:
+                    type: number
+                price:
+                    type: number
+                description:
+                    type: string
+                itemTypeId:
+                    type: number
