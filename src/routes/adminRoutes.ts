@@ -11,6 +11,7 @@ import {
     getItemDetails,
     getLookbooksData,
     login,
+    updateAdminPassword,
 } from '../handlers';
 
 export const adminRoutes: Router = Router();
@@ -34,3 +35,5 @@ adminRoutes.get('/master-data', getAllMasterData);
 adminRoutes.get('/items', getItemsData);
 
 adminRoutes.get('/items/:id', getItemDetails);
+
+adminRoutes.put('/reset-password', updateAdminPassword);

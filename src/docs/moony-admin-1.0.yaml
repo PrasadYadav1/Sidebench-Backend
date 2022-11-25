@@ -604,6 +604,50 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/response_body_404_500'
+    /admins/reset-password:
+        put:
+            description: api to reset password
+            tags:
+                - 'Admin'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/reset_password_req_body'
+
+            responses:
+                '200':
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/deactivate_admin_success_response_200'
+                '401':
+                    description: Unauthorized Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '404':
+                    description: Resource not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
 
 components:
     securitySchemes:
@@ -1209,4 +1253,12 @@ components:
                                                 type: string
 
                 status:
+                    type: string
+        reset_password_req_body:
+            properties:
+                token:
+                    type: string
+                password:
+                    type: string
+                confirmPasswrd:
                     type: string

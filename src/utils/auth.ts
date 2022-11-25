@@ -13,4 +13,9 @@ const generateToken = (
         expiresIn ? { expiresIn } : undefined,
     );
 
+export const generateResetToken = (email: string): string =>
+    sign({ email }, process.env.RESET_TOKEN_SECRET ?? '', {
+        expiresIn: '24h',
+    });
+
 export default generateToken;
