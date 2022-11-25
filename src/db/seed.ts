@@ -307,9 +307,9 @@ async function main() {
             { id: 7, name: 'S', usa: '4', uk: '7', au: '7', denim: '28' },
             { id: 8, name: 'S/M', usa: '6', uk: '10', au: '10', denim: '29' },
             { id: 9, name: 'M', usa: '8', uk: '12', au: '12', denim: '30' },
-            { id: 10, name: 'M/L>', usa: '10', uk: '14', au: '14', denim: '31' },
-            { id: 11, name: 'L>', usa: '12', uk: '16', au: '16', denim: '32' },
-            { id: 12, name: 'L/XL>', usa: '14', uk: '16', au: '16', denim: '33' },
+            { id: 10, name: 'M/L', usa: '10', uk: '14', au: '14', denim: '31' },
+            { id: 11, name: 'L', usa: '12', uk: '16', au: '16', denim: '32' },
+            { id: 12, name: 'L/XL', usa: '14', uk: '16', au: '16', denim: '33' },
         ].map(r =>
             prisma.clothSize.upsert({
                 where: { id: r.id },

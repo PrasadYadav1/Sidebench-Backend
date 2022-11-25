@@ -10,6 +10,7 @@ import {
     getItemsData,
     getItemDetails,
     getLookbooksData,
+    createItem,
     login,
 } from '../handlers';
 
@@ -32,5 +33,7 @@ adminRoutes.put('/change-password', changePassword);
 adminRoutes.get('/master-data', getAllMasterData);
 
 adminRoutes.get('/items', getItemsData);
+
+adminRoutes.post('/items', createItem);
 
 adminRoutes.get('/items/:id', getItemDetails);
