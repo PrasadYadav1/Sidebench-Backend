@@ -9,3 +9,4 @@ export * from './getAllMasterData';
 export * from './getItems';
 export * from './itemDetails';
 export * from './addItem';
+export * from './resetPassword';
