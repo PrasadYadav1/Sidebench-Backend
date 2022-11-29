@@ -467,6 +467,58 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/zod_errors_400'
+        put:
+            description: api to edit item
+            tags:
+                - 'Item'
+            security:
+                - bearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/edit_item_request_body'
+
+            responses:
+                '200':
+                    description: Updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/deactivate_admin_success_response_200'
+                '401':
+                    description: Unauthorized Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '403':
+                    description: Forbidden Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_401_403'
+                '404':
+                    description: Resource not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+                '500':
+                    description: Server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/response_body_404_500'
+
+                '400':
+                    description: Input bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/zod_errors_400'
+
         get:
             description: api to get list of items
             tags:
@@ -490,7 +542,9 @@ paths:
                   name: itemTypeId
                   required: false
                   schema:
-                      type: number
+                      type: array
+                      items:
+                          type: number
                 - in: query
                   name: search
                   required: false
@@ -1409,6 +1463,166 @@ components:
                         properties:
                             jewelryTypeId:
                                 type: number
+        edit_item_request_body:
+            required: ['id']
+            properties:
+                id:
+                    type: number
+                url:
+                    type: string
+                imageUrl:
+                    type: string
+                name:
+                    type: string
+                brand:
+                    type: string
+                currencyId:
+                    type: number
+                price:
+                    type: number
+                description:
+                    type: string
+                itemTypeId:
+                    type: number
+                itemSubTypes:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: number
+                            itemSubTypeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnAttireTypes:
+                    type: array
+                    items:
+                        type: object
+                        required: ['attireTypeId']
+                        properties:
+                            id:
+                                type: number
+                            attireTypeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnWearTypes:
+                    type: array
+                    items:
+                        type: object
+                        required: ['wearTypeId']
+                        properties:
+                            id:
+                                type: number
+                            wearTypeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnSeasons:
+                    type: array
+                    items:
+                        type: object
+                        required: ['seasonId']
+                        properties:
+                            id:
+                                type: number
+                            seasonId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnColors:
+                    type: array
+                    items:
+                        type: object
+                        required: ['colorId']
+                        properties:
+                            id:
+                                type: number
+                            colorId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnFit:
+                    type: array
+                    items:
+                        type: object
+                        required: ['fitId']
+                        properties:
+                            id:
+                                type: number
+                            fitId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnWaistLocation:
+                    type: array
+                    items:
+                        type: object
+                        required: ['waistLocationId']
+                        properties:
+                            id:
+                                type: number
+                            waistLocationId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnKeyword:
+                    type: array
+                    items:
+                        type: object
+                        required: ['keywordId']
+                        properties:
+                            id:
+                                type: number
+                            keywordId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnClothSize:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: number
+                            clothSizeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnShoeSize:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: number
+                            shoeSizeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnShoeHeight:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: number
+                            shoeHeightId:
+                                type: number
+                            isDeleted:
+                                type: boolean
+                itemOnJewelryType:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: number
+                            jewelryTypeId:
+                                type: number
+                            isDeleted:
+                                type: boolean
 
         add_item_success_response_200:
             properties:

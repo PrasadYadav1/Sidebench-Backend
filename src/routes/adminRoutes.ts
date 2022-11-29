@@ -13,6 +13,7 @@ import {
     createItem,
     login,
     updateAdminPassword,
+    editItemData,
 } from '../handlers';
 
 export const adminRoutes: Router = Router();
@@ -36,6 +37,8 @@ adminRoutes.get('/master-data', getAllMasterData);
 adminRoutes.get('/items', getItemsData);
 
 adminRoutes.post('/items', createItem);
+
+adminRoutes.put('/items', editItemData);
 
 adminRoutes.get('/items/:id', getItemDetails);
 
