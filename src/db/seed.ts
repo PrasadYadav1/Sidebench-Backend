@@ -60,9 +60,8 @@ async function main() {
             { id: 4, name: 'Pant', typeName: 'Garment' },
             { id: 5, name: 'Short', typeName: 'Garment' },
             { id: 6, name: 'Skirt', typeName: 'Garment' },
-            { id: 7, name: 'Bag', typeName: 'Bag' },
-            { id: 8, name: 'Shoe', typeName: 'Shoe' },
-            { id: 9, name: 'Accessory', typeName: 'Accessory' },
+            { id: 7, name: 'Shoe', typeName: 'Shoe' },
+            { id: 8, name: 'Accessory', typeName: 'Accessory' },
         ].map(r =>
             prisma.itemType.upsert({
                 where: { id: r.id },
@@ -81,20 +80,20 @@ async function main() {
             { id: 1, itemTypeId: 6, name: 'Mini' },
             { id: 2, itemTypeId: 6, name: 'Midi' },
             { id: 3, itemTypeId: 6, name: 'Maxi' },
-            { id: 4, itemTypeId: 8, name: 'Sandals' },
-            { id: 5, itemTypeId: 8, name: 'Flats' },
-            { id: 6, itemTypeId: 8, name: 'Sneaker' },
-            { id: 7, itemTypeId: 8, name: 'Boots' },
-            { id: 8, itemTypeId: 8, name: 'Mules' },
-            { id: 9, itemTypeId: 8, name: 'Pumps' },
-            { id: 10, itemTypeId: 8, name: 'Heeled Boots' },
-            { id: 11, itemTypeId: 9, name: 'Jewelry' },
-            { id: 12, itemTypeId: 9, name: 'Bags' },
-            { id: 13, itemTypeId: 9, name: 'Belts' },
-            { id: 14, itemTypeId: 9, name: 'Hair Accessories' },
-            { id: 15, itemTypeId: 9, name: 'Sunglasses' },
-            { id: 16, itemTypeId: 9, name: 'Hat' },
-            { id: 17, itemTypeId: 9, name: 'Scarves' },
+            { id: 4, itemTypeId: 7, name: 'Sandals' },
+            { id: 5, itemTypeId: 7, name: 'Flats' },
+            { id: 6, itemTypeId: 7, name: 'Sneaker' },
+            { id: 7, itemTypeId: 7, name: 'Boots' },
+            { id: 8, itemTypeId: 7, name: 'Mules' },
+            { id: 9, itemTypeId: 7, name: 'Pumps' },
+            { id: 10, itemTypeId: 7, name: 'Heeled Boots' },
+            { id: 11, itemTypeId: 8, name: 'Jewelry' },
+            { id: 12, itemTypeId: 8, name: 'Bags' },
+            { id: 13, itemTypeId: 8, name: 'Belts' },
+            { id: 14, itemTypeId: 8, name: 'Hair Accessories' },
+            { id: 15, itemTypeId: 8, name: 'Sunglasses' },
+            { id: 16, itemTypeId: 8, name: 'Hat' },
+            { id: 17, itemTypeId: 8, name: 'Scarves' },
         ].map(r =>
             prisma.itemSubType.upsert({
                 where: { id: r.id },
@@ -110,10 +109,10 @@ async function main() {
 
     await Promise.all(
         [
-            { id: 1, itemTypeId: 8, name: 'Low' },
-            { id: 2, itemTypeId: 8, name: 'Mid' },
-            { id: 3, itemTypeId: 8, name: 'High' },
-            { id: 4, itemTypeId: 8, name: 'No Heel' },
+            { id: 1, itemTypeId: 7, name: 'Low' },
+            { id: 2, itemTypeId: 7, name: 'Mid' },
+            { id: 3, itemTypeId: 7, name: 'High' },
+            { id: 4, itemTypeId: 7, name: 'No Heel' },
         ].map(r =>
             prisma.shoeHeight.upsert({
                 where: { id: r.id },
