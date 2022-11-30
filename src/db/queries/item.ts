@@ -55,3 +55,20 @@ export const getItemMaxId = async (): Promise<number | Error> => {
         return error as Error;
     }
 };
+
+export const updateItem = async (
+    cond: Prisma.ItemWhereUniqueInput,
+    data: Prisma.ItemUncheckedUpdateInput,
+    select?: Prisma.ItemSelect,
+): Promise<object | null | Error> => {
+    try {
+        const admin = await prisma.item.update({
+            where: cond,
+            data,
+            select: select || { id: true },
+        });
+        return admin;
+    } catch (error: unknown) {
+        return error as Error;
+    }
+};

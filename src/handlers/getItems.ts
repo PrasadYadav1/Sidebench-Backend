@@ -16,7 +16,7 @@ export const getItemsData: RequestHandler = async (req: Request, res: Response) 
         page: NumberType.optional(),
         pageSize: NumberType.optional(),
         search: string().optional(),
-        itemTypeId: NumberType.optional(),
+        itemTypeId: z.union([NumberType, z.array(NumberType)]).optional(),
         itemSubTypeId: z.union([NumberType, z.array(NumberType)]).optional(),
         attireTypeId: z.union([NumberType, z.array(NumberType)]).optional(),
         wearTypeId: z.union([NumberType, z.array(NumberType)]).optional(),
@@ -58,6 +58,10 @@ export const getItemsData: RequestHandler = async (req: Request, res: Response) 
 
     let whereCondition: Prisma.ItemWhereInput = { isDeleted: false };
 
+    // pagination
+    const pageSizeData = pageSize ?? defaultPageSize;
+    const pageDaata = page ?? defaultPageNo;
+
     // search
     if (search) {
         whereCondition = getItemElasticSearch(search);
@@ -67,7 +71,7 @@ export const getItemsData: RequestHandler = async (req: Request, res: Response) 
     if (itemTypeId) {
         whereCondition = {
             ...whereCondition,
-            itemTypeId,
+            itemTypeId: typeof itemTypeId === 'number' ? Number(itemTypeId) : { in: itemTypeId },
         };
     }
     // itemSubTypeId filter
@@ -231,8 +235,8 @@ export const getItemsData: RequestHandler = async (req: Request, res: Response) 
 
     // fetch items
     const items = await getItems({
-        skip: (page ?? defaultPageNo - 1) * (pageSize ?? defaultPageSize),
-        take: pageSize,
+        skip: (pageDaata - 1) * pageDaata,
+        take: pageSizeData,
         select: {
             id: true,
             itemNumber: true,
