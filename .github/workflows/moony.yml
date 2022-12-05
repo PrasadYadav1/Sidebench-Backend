@@ -1,0 +1,43 @@
+name: moony cicd flow
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    name: Moony-Backend-Admin
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+        
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build:prod # will run `yarn build:prod` command
+
+      - name: Run test in sub-folder
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: run dev
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image
+        with:
+          image: repo/image
+          tags: v1, latest
+          registry: registry-url.io
+          dockerfile: Dockerfile.ci
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
